@@ -99,6 +99,6 @@ public class UserServiceTest {
         assertEquals(modifyUser, actualUser);
     }
 
-    
+
 
 }

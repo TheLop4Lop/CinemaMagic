@@ -90,12 +90,13 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public void deleteUserById(Integer id) throws NotFoundExceptionCinema{
+    public boolean deleteUserById(Integer id) throws NotFoundExceptionCinema{
         if(!userRepository.existsById(id)){
             throw new NotFoundExceptionCinema("error: 404, No User with that ID" + id);
         }
-        userRepository.delete(getUserById(id));
 
+        userRepository.delete(getUserById(id));
+        return true;
     }
 
 }
