@@ -4,12 +4,14 @@ import com.booster.CineMagic.Entity.User;
 import com.booster.CineMagic.Enum.Account;
 import com.booster.CineMagic.Repository.IUserRepository;
 import com.booster.CineMagic.Service.IUserService;
+import com.booster.CineMagic.Service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +26,7 @@ public class UserServiceTest {
     private IUserRepository userRepository;
 
     @InjectMocks
-    private IUserService userService;
+    private UserService userService;
 
     private User userTest;
     private List<User> userListTest;
@@ -32,6 +34,7 @@ public class UserServiceTest {
     @BeforeEach()
     void setUp(){
         MockitoAnnotations.initMocks(this);
+        userListTest = new ArrayList<>();
         userTest = new User(1, "Pedro Martinez", "pedromtz@gmail.com", 26,
                         "PeterMtz", "12345", Account.PREMIUM);
         userListTest.add(userTest);
@@ -41,7 +44,11 @@ public class UserServiceTest {
 
     @Test
     void testGetUsers(){
-        assertNotNull(userService.getUsers());
+        List<User> userList = userService.getUsers();
+
+        assertNotNull(userList);
     }
+
+    
 
 }
