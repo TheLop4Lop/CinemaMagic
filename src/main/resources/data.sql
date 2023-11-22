@@ -1,0 +1,1 @@
+INSERT INTO user_cinema (Name, Email, Age, Username, Password, Account) VALUES ('Pedro', 'pedro@gmail.com', 26, 'PeterMtz', '123', 'PREMIUM')
