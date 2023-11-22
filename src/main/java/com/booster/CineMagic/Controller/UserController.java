@@ -94,16 +94,17 @@ public class UserController {
     @DeleteMapping("/delete/user/{id}")
     public ResponseEntity<Boolean> deleteUserById(@PathVariable Integer id) throws NotFoundExceptionCinema{
        User userToDelete;
+       boolean result;
 
         try{
             userToDelete = userService.getUserById(id);
-            userService.deleteUserById(userToDelete.getId());
+            result = userService.deleteUserById(userToDelete.getId());
         } catch (NotFoundExceptionCinema exception){
             System.out.println("Exception: No Id found");
             throw new NotFoundExceptionCinema("error: 404, No User with that ID, " + id);
         }
 
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok(result);
     }
 
 }

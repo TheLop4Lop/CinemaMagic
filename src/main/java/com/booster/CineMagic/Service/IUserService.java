@@ -13,6 +13,6 @@ public interface IUserService {
     ExistingData checkExistingUser(User compareUser);
     User addNewUser(User newUser);
     User modifyUserById(Integer id, User modifyUser);
-    void deleteUserById(Integer id);
+    boolean deleteUserById(Integer id);
 
 }
