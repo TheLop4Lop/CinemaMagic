@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @PostMapping("/add/user")
-    public User addNewUser(@Valid @RequestBody User newUser, BindingResult result){
+    public ResponseEntity<?> addNewUser(@Valid @RequestBody User newUser, BindingResult result){
         ExistingData existingUser = userService.checkExistingUser(newUser);
 
         if(result.hasErrors()){
@@ -76,11 +76,11 @@ public class UserController {
                             "Error 405", HttpStatus.CONFLICT);
         }
 
-        return userService.addNewUser(newUser);
+        return ResponseEntity.ok(userService.addNewUser(newUser));
     }
 
     @PutMapping("/modify/user/{id}")
-    public User modifyUserById(@PathVariable Integer id, @Valid @RequestBody User modifyUser, BindingResult result){
+    public ResponseEntity<?> modifyUserById(@PathVariable Integer id, @Valid @RequestBody User modifyUser, BindingResult result){
         if(result.hasErrors()){
             throw new EmptyDataListException("Empty Data List Exception", "Error 404", HttpStatus.BAD_REQUEST, result);
         }
@@ -91,7 +91,7 @@ public class UserController {
                         "Error 409", HttpStatus.CONFLICT);
         }
 
-        return userService.modifyUserById(id, modifyUser);
+        return ResponseEntity.ok(userService.modifyUserById(id, modifyUser));
     }
 
     @DeleteMapping("/delete/user/{id}")

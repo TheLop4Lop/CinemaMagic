@@ -46,6 +46,11 @@ public class UserService implements IUserService{
             }
         }
 
+        if(usersType.isEmpty()){
+            throw new EmptyListException("Not Found Exception", "Error 404, Empty List",
+                    HttpStatus.NOT_FOUND);
+        }
+
         return usersType;
     }
 
