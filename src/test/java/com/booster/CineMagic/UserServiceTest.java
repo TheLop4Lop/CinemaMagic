@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -40,15 +41,23 @@ public class UserServiceTest {
         userListTest.add(userTest);
 
         when(userRepository.findAll()).thenReturn(userListTest);
+        when(userRepository.findById(1)).thenReturn(Optional.of(userTest));
     }
 
     @Test
     void testGetUsers(){
         List<User> userList = userService.getUsers();
 
-        assertNotNull(userList);
+        assertTrue(userList != null && !userList.isEmpty());
     }
 
-    
+    @Test
+    void testGetUsersByAccountType(){
+        List<User> userListAccount = userService.getUsersByAccountType(Account.PREMIUM);
+
+        assertTrue(userListAccount != null && !userListAccount.isEmpty());
+    }
+
+  
 
 }
