@@ -99,6 +99,11 @@ public class UserServiceTest {
         assertEquals(modifyUser, actualUser);
     }
 
+    @Test
+    void testDeleteUserById(){
+        boolean actualBool = userService.deleteUserById(1);
 
+        assertTrue(actualBool);
+    }
 
 }
