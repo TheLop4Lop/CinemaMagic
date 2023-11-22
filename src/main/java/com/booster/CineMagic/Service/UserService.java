@@ -49,7 +49,7 @@ public class UserService implements IUserService{
     @Override
     public User getUserById(Integer id) throws NotFoundExceptionCinema{
         if(!userRepository.existsById(id)){
-            throw new NotFoundExceptionCinema("error: 404, No User with that " + id);
+            throw new NotFoundExceptionCinema("error: 404, No User with that ID " + id);
         }
 
         return userRepository.findById(id).orElse(null);
