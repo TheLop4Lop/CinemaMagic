@@ -29,7 +29,7 @@ public class WorkerController {
 
         if(workerCinema.isEmpty())
         {
-            throw new EmptyListException("Not Found Exception", "Error 404, User List is empty",
+            throw new EmptyListException("Not Found Exception", "Error 404, Worker List is empty",
                     HttpStatus.NOT_FOUND);
         }
 
@@ -44,7 +44,7 @@ public class WorkerController {
             throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, Type not found",
                     HttpStatus.NOT_FOUND);
         }else if(workersByAccount.isEmpty()){
-            throw new EmptyListException("Not Found Exception", "Error 404, User List is empty",
+            throw new EmptyListException("Not Found Exception", "Error 404, Worker List is empty",
                     HttpStatus.NOT_FOUND);
         }
 
@@ -57,7 +57,7 @@ public class WorkerController {
 
         if(workersByYear.isEmpty())
         {
-            throw new EmptyListException("Not Found Exception", "Error 404, User List is empty",
+            throw new EmptyListException("Not Found Exception", "Error 404, Worker List is empty",
                     HttpStatus.NOT_FOUND);
         }
 

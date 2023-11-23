@@ -38,5 +38,5 @@ CREATE TABLE IF NOT EXISTS movies (
     Director VARCHAR(100) NOT NULL,
     Format VARCHAR(20) NOT NULL,
     Type VARCHAR(20) NOT NULL,
-    Watched INT NOT NULL,
+    Watched INT NOT NULL
 );
