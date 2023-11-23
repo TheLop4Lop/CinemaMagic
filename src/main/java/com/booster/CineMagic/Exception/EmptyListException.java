@@ -5,8 +5,29 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class EmptyListException extends RuntimeException{
-    public EmptyListException(String exceptionMessage){
-        super("Empty List - " + exceptionMessage);
+    private String errorCode;
+    HttpStatus errorStatus;
+
+    public EmptyListException(String errorMessage, String errorCode, HttpStatus errorStatus) {
+        super(errorMessage);
+
+        this.errorCode = errorCode;
+        this.errorStatus = errorStatus;
     }
 
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public HttpStatus getErrorStatus() {
+        return errorStatus;
+    }
+
+    public void setErrorStatus(HttpStatus errorStatus) {
+        this.errorStatus = errorStatus;
+    }
 }
