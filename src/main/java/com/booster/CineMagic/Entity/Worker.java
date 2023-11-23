@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Entity
 @Table(name = "worker")
@@ -22,9 +21,8 @@ public class Worker {
     private String name;
 
     @NotNull(message = "Date is Null")
-    @Temporal(TemporalType.DATE)
     @Column(name = "Register_Date")
-    private Date registerDate;
+    private int registerDate;
 
     @Email(message = "Not a valid Email")
     @NotNull(message = "Email is Null")
@@ -51,7 +49,7 @@ public class Worker {
 
     }
 
-    public Worker(Integer id, String name, Date registerDate, String eMail, String username, String password, WorkerType type) {
+    public Worker(Integer id, String name, int registerDate, String eMail, String username, String password, WorkerType type) {
         this.id = id;
         this.name = name;
         this.registerDate = registerDate;
@@ -77,11 +75,11 @@ public class Worker {
         this.name = name;
     }
 
-    public Date getRegisterDate() {
+    public int getRegisterDate() {
         return registerDate;
     }
 
-    public void setRegisterDate(Date registerDate) {
+    public void setRegisterDate(int registerDate) {
         this.registerDate = registerDate;
     }
 
