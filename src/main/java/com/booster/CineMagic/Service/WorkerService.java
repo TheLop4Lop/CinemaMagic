@@ -90,9 +90,11 @@ public class WorkerService implements IWorkerService{
             getWorkerById(id).setUsername(modifyWorker.getUsername());
             getWorkerById(id).setPassword(modifyWorker.getPassword());
             getWorkerById(id).setType(modifyWorker.getType());
+
+            return workerRepository.save(getWorkerById(id));
         }
 
-        return workerRepository.save(getWorkerById(id));
+        return null;
     }
 
     @Override

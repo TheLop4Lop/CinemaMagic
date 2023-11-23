@@ -94,6 +94,9 @@ public class WorkerController {
     public ResponseEntity<?> modifyWorkerById(@PathVariable Integer id, @Valid @RequestBody Worker modifyWorker, BindingResult result){
         if(result.hasErrors()){
             throw new EmptyDataListException("Empty Data List Exception", "Error 404", HttpStatus.BAD_REQUEST, result);
+        } else if(workerService.getWorkerById(id) == null){
+            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
+                    HttpStatus.NOT_FOUND);
         }
 
         ExistingData existingWorker = workerService.checkExistingWorker(modifyWorker);
