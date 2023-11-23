@@ -25,13 +25,11 @@ public class WorkerController {
 
     @GetMapping("/workers")
     public ResponseEntity<?> getWorkers() {
-        List<Worker> workerCinema;
+        List<Worker> workerCinema = workerService.getWorkers();
 
-        try {
-            workerCinema = workerService.getWorkers();
-        }catch (EmptyListException exception){
-            System.out.println("Exception: No Workers to GET");
-            throw new EmptyListException("Not Found Exception", "Error 404, Empty List",
+        if(workerCinema.isEmpty())
+        {
+            throw new EmptyListException("Not Found Exception", "Error 404, User List is empty",
                     HttpStatus.NOT_FOUND);
         }
 
@@ -40,13 +38,13 @@ public class WorkerController {
 
     @GetMapping("/workers/account/{type}")
     public ResponseEntity<?> getWorkersByAccount(@PathVariable WorkerType type) {
-        List<Worker> workersByAccount;
+        List<Worker> workersByAccount = workerService.getWorkersByAccountType(type);
 
-        try {
-            workersByAccount = workerService.getWorkersByAccountType(type);
-        }catch (NotFoundExceptionCinema exception){
-            System.out.println("Exception: Not found, Incorrect Type");
-            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No Account found",
+        if(workersByAccount == null){
+            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, Type not found",
+                    HttpStatus.NOT_FOUND);
+        }else if(workersByAccount.isEmpty()){
+            throw new EmptyListException("Not Found Exception", "Error 404, User List is empty",
                     HttpStatus.NOT_FOUND);
         }
 
@@ -55,13 +53,11 @@ public class WorkerController {
 
     @GetMapping("/workers/year/{year}")
     public ResponseEntity<?> getWorkersByYear(@PathVariable int year){
-        List<Worker> workersByYear;
+        List<Worker> workersByYear = workerService.getWorkersByYear(year);
 
-        try {
-            workersByYear = workerService.getWorkersByYear(year);
-        }catch (NotFoundExceptionCinema exception){
-            System.out.println("Exception: Not found, Incorrect Type");
-            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No Account found",
+        if(workersByYear.isEmpty())
+        {
+            throw new EmptyListException("Not Found Exception", "Error 404, User List is empty",
                     HttpStatus.NOT_FOUND);
         }
 
@@ -70,12 +66,9 @@ public class WorkerController {
 
     @GetMapping("/worker/{id}")
     public ResponseEntity<?> getWorkerById(@PathVariable Integer id) {
-        Worker workerById;
+        Worker workerById = workerService.getWorkerById(id);
 
-        try{
-            workerById = workerService.getWorkerById(id);
-        }catch (NotFoundExceptionCinema exception){
-            System.out.println("Exception: No Id found");
+        if(workerById == null){
             throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
                     HttpStatus.NOT_FOUND);
         }
@@ -114,18 +107,13 @@ public class WorkerController {
 
     @DeleteMapping("/delete/worker/{id}")
     public ResponseEntity<Boolean> deleteWorkerById(@PathVariable Integer id) {
-        Worker workerToDelete;
-        boolean result;
+        boolean deletionResult = workerService.deleteWorkerById(id);
 
-        try{
-            workerToDelete = workerService.getWorkerById(id);
-            result = workerService.deleteWorkerById(workerToDelete.getId());
-        } catch (NotFoundExceptionCinema exception){
-            System.out.println("Exception: No Id found");
+        if (!deletionResult) {
             throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
                     HttpStatus.NOT_FOUND);
         }
 
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(true);
     }
 }
