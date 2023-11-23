@@ -4,7 +4,6 @@ import com.booster.CineMagic.Entity.User;
 import com.booster.CineMagic.Enum.Account;
 import com.booster.CineMagic.Enum.ExistingData;
 import com.booster.CineMagic.Repository.IUserRepository;
-import com.booster.CineMagic.Service.IUserService;
 import com.booster.CineMagic.Service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
