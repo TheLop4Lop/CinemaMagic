@@ -22,4 +22,20 @@ CREATE TABLE IF NOT EXISTS worker (
     Worker_Type VARCHAR(20) NOT NULL
 );
 
+DROP TABLE IF EXISTS movies;
 
+CREATE TABLE IF NOT EXISTS movies (
+    ID_Movie INTEGER AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Duration VARCHAR NOT NULL,
+    Country VARCHAR(50) NOT NULL,
+    Category VARCHAR(50) NOT NULL,
+    Classification VARCHAR(20) NOT NULL,
+    Rating FLOAT NOT NULL,
+    Synopsis VARCHAR(1000) NOT NULL,
+    Movie_Language VARCHAR(50) NOT NULL,
+    Release_Year INT NOT NULL,
+    Director VARCHAR(100) NOT NULL,
+    Format VARCHAR(20) NOT NULL,
+    Type VARCHAR(20) NOT NULL
+);
