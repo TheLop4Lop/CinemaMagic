@@ -3,11 +3,8 @@ package com.booster.CineMagic.Service;
 import com.booster.CineMagic.Entity.User;
 import com.booster.CineMagic.Enum.Account;
 import com.booster.CineMagic.Enum.ExistingData;
-import com.booster.CineMagic.Exception.EmptyListException;
-import com.booster.CineMagic.Exception.NotFoundExceptionCinema;
 import com.booster.CineMagic.Repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,11 +18,6 @@ public class UserService implements IUserService{
 
     @Override
     public List<User> getUsers() {
-        if(userRepository.findAll().isEmpty())
-        {
-            throw new EmptyListException("Not Found Exception", "Error 404, Empty List",
-                    HttpStatus.NOT_FOUND);
-        }
 
         return userRepository.findAll();
     }
@@ -36,8 +28,7 @@ public class UserService implements IUserService{
         List<User> usersType = new ArrayList<User>();
 
         if(type != Account.PREMIUM && type != Account.REGULAR){
-            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404",
-                    HttpStatus.NOT_FOUND);
+            return null;
         }
 
         for(User singleUser: allUsers){
@@ -46,20 +37,11 @@ public class UserService implements IUserService{
             }
         }
 
-        if(usersType.isEmpty()){
-            throw new EmptyListException("Not Found Exception", "Error 404, Empty List",
-                    HttpStatus.NOT_FOUND);
-        }
-
         return usersType;
     }
 
     @Override
     public User getUserById(Integer id) {
-        if(!userRepository.existsById(id)){
-            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
-                    HttpStatus.NOT_FOUND);
-        }
 
         return userRepository.findById(id).orElse(null);
     }
@@ -101,8 +83,7 @@ public class UserService implements IUserService{
     @Override
     public boolean deleteUserById(Integer id) {
         if(!userRepository.existsById(id)){
-            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
-                    HttpStatus.NOT_FOUND);
+            return false;
         }
 
         userRepository.delete(getUserById(id));
