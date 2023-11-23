@@ -40,3 +40,14 @@ CREATE TABLE IF NOT EXISTS movies (
     Type VARCHAR(20) NOT NULL,
     Watched INT NOT NULL
 );
+
+DROP TABLE IF EXISTS projection;
+
+CREATE TABLE IF NOT EXISTS projection (
+    ID_Projection INTEGER AUTO_INCREMENT PRIMARY KEY,
+    ID_Movie INT NOT NULL,
+    Room VARCHAR(10) NOT NULL,
+    Projection_Hour VARCHAR(20) NOT NULL,
+
+    FOREIGN KEY(ID_Movie) REFERENCES movies(ID_Movie)
+);
