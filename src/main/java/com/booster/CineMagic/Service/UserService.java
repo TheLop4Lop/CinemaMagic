@@ -75,9 +75,11 @@ public class UserService implements IUserService{
             getUserById(id).setUsername(modifyUser.getUsername());
             getUserById(id).setPassword(modifyUser.getPassword());
             getUserById(id).setAccount(modifyUser.getAccount());
+
+            return userRepository.save(getUserById(id));
         }
 
-        return userRepository.save(getUserById(id));
+        return null;
     }
 
     @Override
