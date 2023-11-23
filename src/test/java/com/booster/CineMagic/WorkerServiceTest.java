@@ -1,7 +1,6 @@
 package com.booster.CineMagic;
 
 import com.booster.CineMagic.Entity.Worker;
-import com.booster.CineMagic.Enum.Account;
 import com.booster.CineMagic.Enum.ExistingData;
 import com.booster.CineMagic.Enum.WorkerType;
 import com.booster.CineMagic.Repository.IWorkerRepository;

@@ -4,8 +4,6 @@ import com.booster.CineMagic.Entity.Worker;
 import com.booster.CineMagic.Enum.ExistingData;
 import com.booster.CineMagic.Enum.WorkerType;
 
-import java.time.Year;
-import java.util.Date;
 import java.util.List;
 
 public interface IWorkerService {
