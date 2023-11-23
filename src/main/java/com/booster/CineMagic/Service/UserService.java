@@ -7,6 +7,7 @@ import com.booster.CineMagic.Exception.EmptyListException;
 import com.booster.CineMagic.Exception.NotFoundExceptionCinema;
 import com.booster.CineMagic.Repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,22 +20,24 @@ public class UserService implements IUserService{
     IUserRepository userRepository;
 
     @Override
-    public List<User> getUsers() throws EmptyListException {
+    public List<User> getUsers() {
         if(userRepository.findAll().isEmpty())
         {
-            throw new EmptyListException("error: 404, Empty User List");
+            throw new EmptyListException("Not Found Exception", "Error 404, Empty List",
+                    HttpStatus.NOT_FOUND);
         }
 
         return userRepository.findAll();
     }
 
     @Override
-    public List<User> getUsersByAccountType(Account type) throws NotFoundExceptionCinema {
+    public List<User> getUsersByAccountType(Account type) {
         List<User> allUsers = userRepository.findAll();
         List<User> usersType = new ArrayList<User>();
 
         if(type != Account.PREMIUM && type != Account.REGULAR){
-            throw new NotFoundExceptionCinema("error: 404, Incorrect type");
+            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404",
+                    HttpStatus.NOT_FOUND);
         }
 
         for(User singleUser: allUsers){
@@ -43,13 +46,23 @@ public class UserService implements IUserService{
             }
         }
 
+        if(usersType.isEmpty()){
+            throw new EmptyListException("Not Found Exception", "Error 404, Empty List",
+                    HttpStatus.NOT_FOUND);
+        }
+
         return usersType;
     }
 
     @Override
-    public User getUserById(Integer id) throws NotFoundExceptionCinema{
+    public User getUserById(Integer id) {
         if(!userRepository.existsById(id)){
+<<<<<<< HEAD
             throw new NotFoundExceptionCinema("error: 404, No User with that ID " + id);
+=======
+            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
+                    HttpStatus.NOT_FOUND);
+>>>>>>> develop
         }
 
         return userRepository.findById(id).orElse(null);
@@ -90,9 +103,14 @@ public class UserService implements IUserService{
     }
 
     @Override
+<<<<<<< HEAD
     public boolean deleteUserById(Integer id) throws NotFoundExceptionCinema{
+=======
+    public boolean deleteUserById(Integer id) {
+>>>>>>> develop
         if(!userRepository.existsById(id)){
-            throw new NotFoundExceptionCinema("error: 404, No User with that ID" + id);
+            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
+                    HttpStatus.NOT_FOUND);
         }
 
         userRepository.delete(getUserById(id));

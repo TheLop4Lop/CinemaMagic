@@ -10,3 +10,16 @@ CREATE TABLE IF NOT EXISTS user_cinema (
     Account VARCHAR(20) NOT NULL
 );
 
+DROP TABLE IF EXISTS worker;
+
+CREATE TABLE IF NOT EXISTS worker (
+    ID_Worker INTEGER AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Register_Date INT NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    Username VARCHAR(100) NOT NULL,
+    Password VARCHAR(250) NOT NULL,
+    Worker_Type VARCHAR(20) NOT NULL
+);
+
+
