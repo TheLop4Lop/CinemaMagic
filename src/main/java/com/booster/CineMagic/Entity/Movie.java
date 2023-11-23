@@ -14,73 +14,79 @@ public class Movie {
     @Column(name = "ID_Movie")
     private Integer id;
 
-    @NotNull(message = "Name is Null")
-    @NotEmpty(message = "Name is Empty")
+    @NotNull(message = "Title is Null")
+    @NotEmpty(message = "Title is Empty")
     @Column(name = "Title")
     private String title;
 
-    @NotNull(message = "Name is Null")
-    @NotEmpty(message = "Name is Empty")
+    @NotNull(message = "Duration is Null")
+    @NotEmpty(message = "Duration is Empty")
     @Column(name = "Duration")
     private String duration;
 
-    @NotNull(message = "Name is Null")
-    @NotEmpty(message = "Name is Empty")
+    @NotNull(message = "Country is Null")
+    @NotEmpty(message = "Country is Empty")
     @Column(name = "Country")
     private String country;
 
-    @NotNull(message = "Name is Null")
-    @NotEmpty(message = "Name is Empty")
+    @NotNull(message = "Category is Null")
+    @NotEmpty(message = "Category is Empty")
     @Column(name = "Category")
     private String category;
 
-    @NotNull(message = "Name is Null")
-    @NotEmpty(message = "Name is Empty")
+    @NotNull(message = "Classification is Null")
+    @NotEmpty(message = "Classification is Empty")
     @Column(name = "Classification")
     private String classification;
 
-    @NotNull(message = "Name is Null")
+    @NotNull(message = "Rating is Null")
     @DecimalMin(value = "0.0", inclusive = true, message = "Debe ser mayor o igual que 0.0")
     @DecimalMax(value = "5.0", inclusive = true, message = "Debe ser menor o igual que 5.0")
     @Column(name = "Rating")
     private float rating;
 
-    @NotNull(message = "Name is Null")
-    @NotEmpty(message = "Name is Empty")
+    @NotNull(message = "Synopsis is Null")
+    @NotEmpty(message = "Synopsis is Empty")
     @Column(name = "Synopsis")
     private String synopsis;
 
-    @NotNull(message = "Name is Null")
-    @NotEmpty(message = "Name is Empty")
+    @NotNull(message = "Language is Null")
+    @NotEmpty(message = "Language is Empty")
     @Column(name = "Movie_Language")
     private String language;
 
-    @NotNull(message = "Name is Null")
-    @NotEmpty(message = "Name is Empty")
+    @NotNull(message = "Year is Null")
+    @NotEmpty(message = "Year is Empty")
     @Column(name = "Release_Year")
     private int year;
 
-    @NotNull(message = "Name is Null")
-    @NotEmpty(message = "Name is Empty")
+    @NotNull(message = "Director is Null")
+    @NotEmpty(message = "Director is Empty")
     @Column(name = "Director")
     private String director;
 
-    @NotNull(message = "Account is Null")
+    @NotNull(message = "Format is Null")
     @Column(name = "Format")
     @Enumerated(EnumType.STRING)
     private MovieFormat format;
 
-    @NotNull(message = "Account is Null")
+    @NotNull(message = "Type is Null")
     @Column(name = "Type")
     @Enumerated(EnumType.STRING)
     private Account type;
+
+    @NotNull(message = "Rating is Null")
+    @Positive(message = "Watched is negative")
+    @Column(name = "Watched")
+    private int watched;
 
     public Movie() {
 
     }
 
     public Movie(Integer id, String title, String duration, String country, String category, String classification,
-                 float rating, String synopsis, String language, int year, String director, MovieFormat format, Account type) {
+                 float rating, String synopsis, String language, int year, String director,
+                 MovieFormat format, Account type, int watched) {
         this.id = id;
         this.title = title;
         this.duration = duration;
@@ -94,6 +100,7 @@ public class Movie {
         this.director = director;
         this.format = format;
         this.type = type;
+        this.watched = watched;
     }
 
     public Integer getId() {
@@ -199,4 +206,13 @@ public class Movie {
     public void setType(Account type) {
         this.type = type;
     }
+
+    public int getWatched() {
+        return watched;
+    }
+
+    public void setWatched(int watched) {
+        this.watched = watched;
+    }
+
 }

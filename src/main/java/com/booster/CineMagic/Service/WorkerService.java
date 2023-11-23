@@ -7,7 +7,6 @@ import com.booster.CineMagic.Repository.IWorkerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

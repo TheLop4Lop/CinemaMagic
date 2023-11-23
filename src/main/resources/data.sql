@@ -14,7 +14,7 @@ INSERT INTO worker (Name, Register_Date, Email, Username, Password, Worker_Type)
 'Password123',
 'ADMIN')
 
-INSERT INTO movies (Title, Duration, Country, Category, Classification, Rating, Synopsis, Movie_Language, Release_Year, Director, Format, Type) VALUES (
+INSERT INTO movies (Title, Duration, Country, Category, Classification, Rating, Synopsis, Movie_Language, Release_Year, Director, Format, Type, Watched) VALUES (
 'The Lord Of The Rings: The Fellowship of the Ring',
 '178 minutes',
 'United Kingdom',
@@ -26,5 +26,6 @@ INSERT INTO movies (Title, Duration, Country, Category, Classification, Rating, 
 2001,
 'Peter Jackson',
 'SUBTITLE',
-'PREMIUM'
+'PREMIUM',
+100
 )
