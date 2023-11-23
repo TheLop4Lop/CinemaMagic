@@ -2,14 +2,17 @@ package com.booster.CineMagic.Service;
 
 import com.booster.CineMagic.Entity.Movie;
 import com.booster.CineMagic.Enum.Account;
+import com.booster.CineMagic.Enum.MovieCriteria;
 import com.booster.CineMagic.Enum.MovieFormat;
 import com.booster.CineMagic.Repository.IMovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Service
 public class MovieService implements IMovieService{
     @Autowired
     IMovieRepository movieRepository;
@@ -35,32 +38,37 @@ public class MovieService implements IMovieService{
     }
 
     @Override
-    public List<Movie> getMoviesByCriteria(String criteria, String value) {
+    public List<Movie> getMoviesByCriteria(MovieCriteria criteria, String value) {
         List<Movie> allMovies = movieRepository.findAll();
         List<Movie> moviesByCriteria = new ArrayList<>();
 
         for(Movie singleMovie : allMovies){
-            switch(criteria){
-                case "classification":
-                    if(Objects.equals(singleMovie.getClassification(), value)){
+            switch(criteria) {
+                case CLASSIFICATION:
+                    if (Objects.equals(singleMovie.getClassification(), value)) {
                         moviesByCriteria.add(singleMovie);
                     }
-                case "category":
-                    if(Objects.equals(singleMovie.getCategory(), value)){
+                    break;
+                case CATEGORY:
+                    if (Objects.equals(singleMovie.getCategory(), value)) {
                         moviesByCriteria.add(singleMovie);
                     }
-                case "country":
-                    if(Objects.equals(singleMovie.getCountry(), value)){
+                    break;
+                case COUNTRY:
+                    if (Objects.equals(singleMovie.getCountry(), value)) {
                         moviesByCriteria.add(singleMovie);
                     }
-                case "language":
-                    if(Objects.equals(singleMovie.getLanguage(), value)){
+                    break;
+                case LANGUAGE:
+                    if (Objects.equals(singleMovie.getLanguage(), value)) {
                         moviesByCriteria.add(singleMovie);
                     }
-                case "director":
-                    if(Objects.equals(singleMovie.getDirector(), value)){
+                    break;
+                case DIRECTOR:
+                    if (Objects.equals(singleMovie.getDirector(), value)) {
                         moviesByCriteria.add(singleMovie);
                     }
+                    break;
             }
         }
 
@@ -115,14 +123,6 @@ public class MovieService implements IMovieService{
     }
 
     @Override
-    public int getWatchedQuantity(Integer id) {
-        Movie watchedMovie = movieRepository.findById(id).orElse(null);
-
-        assert watchedMovie != null;
-        return watchedMovie.getWatched();
-    }
-
-    @Override
     public Movie addNewMovie(Movie newMovie) {
 
         return movieRepository.save(newMovie);
@@ -158,7 +158,7 @@ public class MovieService implements IMovieService{
         }
         
         movieRepository.delete(getMovieByID(1));
-        return false;
+        return true;
     }
 
 }

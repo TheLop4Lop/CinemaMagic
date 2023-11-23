@@ -56,7 +56,7 @@ public class Movie {
     private String language;
 
     @NotNull(message = "Year is Null")
-    @NotEmpty(message = "Year is Empty")
+    @Positive(message = "Year must be positive")
     @Column(name = "Release_Year")
     private int year;
 
