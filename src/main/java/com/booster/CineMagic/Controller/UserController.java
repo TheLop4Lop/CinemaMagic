@@ -22,13 +22,11 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<?> getUsers() {
-        List<User> userCinema;
+        List<User> userCinema = userService.getUsers();
 
-        try {
-            userCinema = userService.getUsers();
-        }catch (EmptyListException exception){
-            System.out.println("Exception: No Users to GET");
-            throw new EmptyListException("Not Found Exception", "Error 404, Empty List",
+        if(userCinema.isEmpty())
+        {
+            throw new EmptyListException("Not Found Exception", "Error 404, User List is empty",
                     HttpStatus.NOT_FOUND);
         }
 
@@ -37,14 +35,14 @@ public class UserController {
 
     @GetMapping("/users/account/{type}")
     public ResponseEntity<?> getUsersByAccount(@PathVariable Account type) {
-        List<User> usersByAccount;
+        List<User> usersByAccount = userService.getUsersByAccountType(type);
 
-        try {
-            usersByAccount = userService.getUsersByAccountType(type);
-        }catch (NotFoundExceptionCinema exception){
-            System.out.println("Exception: Not found, Incorrect Type");
-            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No Account found",
-                        HttpStatus.NOT_FOUND);
+        if(usersByAccount == null){
+            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, Type not found",
+                    HttpStatus.NOT_FOUND);
+        }else if(usersByAccount.isEmpty()){
+            throw new EmptyListException("Not Found Exception", "Error 404, User List is empty",
+                    HttpStatus.NOT_FOUND);
         }
 
         return ResponseEntity.ok(usersByAccount);
@@ -52,12 +50,9 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Integer id) {
-        User userById;
+        User userById = userService.getUserById(id);
 
-        try{
-            userById = userService.getUserById(id);
-        }catch (NotFoundExceptionCinema exception){
-            System.out.println("Exception: No Id found");
+        if(userById == null){
             throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
                     HttpStatus.NOT_FOUND);
         }
@@ -96,19 +91,14 @@ public class UserController {
 
     @DeleteMapping("/delete/user/{id}")
     public ResponseEntity<Boolean> deleteUserById(@PathVariable Integer id) {
-       User userToDelete;
-       boolean result;
+        boolean deletionResult = userService.deleteUserById(id);
 
-        try{
-            userToDelete = userService.getUserById(id);
-            result = userService.deleteUserById(userToDelete.getId());
-        } catch (NotFoundExceptionCinema exception){
-            System.out.println("Exception: No Id found");
+        if (!deletionResult) {
             throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
                     HttpStatus.NOT_FOUND);
         }
 
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(true);
     }
 
 }
