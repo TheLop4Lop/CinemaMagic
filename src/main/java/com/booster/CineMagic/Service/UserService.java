@@ -57,12 +57,8 @@ public class UserService implements IUserService{
     @Override
     public User getUserById(Integer id) {
         if(!userRepository.existsById(id)){
-<<<<<<< HEAD
-            throw new NotFoundExceptionCinema("error: 404, No User with that ID " + id);
-=======
             throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
                     HttpStatus.NOT_FOUND);
->>>>>>> develop
         }
 
         return userRepository.findById(id).orElse(null);
@@ -103,11 +99,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-<<<<<<< HEAD
-    public boolean deleteUserById(Integer id) throws NotFoundExceptionCinema{
-=======
     public boolean deleteUserById(Integer id) {
->>>>>>> develop
         if(!userRepository.existsById(id)){
             throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
                     HttpStatus.NOT_FOUND);
