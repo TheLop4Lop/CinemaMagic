@@ -3,11 +3,8 @@ package com.booster.CineMagic.Service;
 import com.booster.CineMagic.Entity.Worker;
 import com.booster.CineMagic.Enum.ExistingData;
 import com.booster.CineMagic.Enum.WorkerType;
-import com.booster.CineMagic.Exception.EmptyListException;
-import com.booster.CineMagic.Exception.NotFoundExceptionCinema;
 import com.booster.CineMagic.Repository.IWorkerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;
