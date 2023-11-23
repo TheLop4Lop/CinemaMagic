@@ -78,6 +78,9 @@ public class UserController {
     public ResponseEntity<?> modifyUserById(@PathVariable Integer id, @Valid @RequestBody User modifyUser, BindingResult result){
         if(result.hasErrors()){
             throw new EmptyDataListException("Empty Data List Exception", "Error 404", HttpStatus.BAD_REQUEST, result);
+        }else if(userService.getUserById(id) == null){
+            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
+                    HttpStatus.NOT_FOUND);
         }
 
         ExistingData existingUser = userService.checkExistingUser(modifyUser);
