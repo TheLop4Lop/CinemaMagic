@@ -57,8 +57,12 @@ public class UserService implements IUserService{
     @Override
     public User getUserById(Integer id) {
         if(!userRepository.existsById(id)){
+<<<<<<< HEAD
             throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
                     HttpStatus.NOT_FOUND);
+=======
+            throw new NotFoundExceptionCinema("error: 404, No User with that ID " + id);
+>>>>>>> c897ecd98d80b2fa38f3375d2ddd60fa95561ab7
         }
 
         return userRepository.findById(id).orElse(null);
