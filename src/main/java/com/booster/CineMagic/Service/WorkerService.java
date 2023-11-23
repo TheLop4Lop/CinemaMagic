@@ -22,11 +22,6 @@ public class WorkerService implements IWorkerService{
 
     @Override
     public List<Worker> getWorkers() {
-        if(workerRepository.findAll().isEmpty())
-        {
-            throw new EmptyListException("Not Found Exception", "Error 404, Empty List",
-                    HttpStatus.NOT_FOUND);
-        }
 
         return workerRepository.findAll();
     }
@@ -37,19 +32,13 @@ public class WorkerService implements IWorkerService{
         List<Worker> WorkersType = new ArrayList<Worker>();
 
         if(type != WorkerType.REGULAR && type != WorkerType.ADMIN){
-            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404",
-                    HttpStatus.NOT_FOUND);
+            return null;
         }
 
         for(Worker singleWorker: allWorkers){
             if(singleWorker.getType() == type){
                 WorkersType.add(singleWorker);
             }
-        }
-
-        if(WorkersType.isEmpty()){
-            throw new EmptyListException("Not Found Exception", "Error 404, Empty List",
-                    HttpStatus.NOT_FOUND);
         }
 
         return WorkersType;
@@ -66,20 +55,11 @@ public class WorkerService implements IWorkerService{
             }
         }
 
-        if(workersByYear.isEmpty()){
-            throw new EmptyListException("Not Found Exception", "Error 404, Empty List",
-                    HttpStatus.NOT_FOUND);
-        }
-
         return workersByYear;
     }
 
     @Override
     public Worker getWorkerById(Integer id) {
-        if(!workerRepository.existsById(id)){
-            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
-                    HttpStatus.NOT_FOUND);
-        }
 
         return workerRepository.findById(id).orElse(null);
     }
@@ -121,8 +101,7 @@ public class WorkerService implements IWorkerService{
     @Override
     public boolean deleteWorkerById(Integer id) {
         if(!workerRepository.existsById(id)){
-            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
-                    HttpStatus.NOT_FOUND);
+            return false;
         }
 
         workerRepository.delete(getWorkerById(id));
