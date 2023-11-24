@@ -156,8 +156,14 @@ public class MovieService implements IMovieService{
         if(!movieRepository.existsById(id)){
             return false;
         }
-        
-        movieRepository.delete(getMovieByID(1));
+
+        Movie movieToDelete = movieRepository.findById(id).orElse(null);
+        if (movieToDelete != null) {
+            movieRepository.delete(movieToDelete);
+        }else{
+            return false;
+        }
+
         return true;
     }
 
