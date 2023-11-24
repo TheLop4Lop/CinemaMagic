@@ -4,10 +4,7 @@ import com.booster.CineMagic.Entity.Movie;
 import com.booster.CineMagic.Enum.Account;
 import com.booster.CineMagic.Enum.MovieCriteria;
 import com.booster.CineMagic.Enum.MovieFormat;
-import com.booster.CineMagic.Exception.EmptyDataListException;
-import com.booster.CineMagic.Exception.EmptyListException;
-import com.booster.CineMagic.Exception.ExistingDataException;
-import com.booster.CineMagic.Exception.NotFoundExceptionCinema;
+import com.booster.CineMagic.Exception.*;
 import com.booster.CineMagic.Service.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -151,19 +148,16 @@ public class MovieController {
 
     @DeleteMapping("/delete/movie/{id}")
     ResponseEntity<?> deleteMovie(@PathVariable Integer id){
-        if(movieService.hasProjections(id)){
-            throw new ExistingDataException("Existing Data Exception: " + movieService.getMovieByID(id).getTitle() +
+        Movie movieToDelete = movieService.getMovieByID(id);
+        if(movieToDelete == null){
+            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
+                    HttpStatus.NOT_FOUND);
+        }else if(movieToDelete.isAvailable()) {
+            throw new DependencyEntityException("Dependency Entity Exception: " + movieService.getMovieByID(id).getTitle() +
                     " is register on projection, please delete associated projections", "Error 409", HttpStatus.CONFLICT);
         }
 
-        boolean deletionResult = movieService.deleteMovie(id);
-
-        if (!deletionResult) {
-            throw new NotFoundExceptionCinema("Not Found Exception", "Error 404, No ID found",
-                    HttpStatus.NOT_FOUND);
-        }
-
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok(movieService.deleteMovie(id));
     }
 
 }

@@ -180,10 +180,6 @@ public class MovieService implements IMovieService{
 
     @Override
     public boolean deleteMovie(Integer id) {
-        if(!movieRepository.existsById(id)){
-            return false;
-        }
-
         Movie movieToDelete = movieRepository.findById(id).orElse(null);
         if (movieToDelete != null) {
             movieRepository.delete(movieToDelete);

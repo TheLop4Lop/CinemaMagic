@@ -1,9 +1,6 @@
 package com.booster.CineMagic.Controller;
 
-import com.booster.CineMagic.Exception.EmptyDataListException;
-import com.booster.CineMagic.Exception.EmptyListException;
-import com.booster.CineMagic.Exception.ExistingDataException;
-import com.booster.CineMagic.Exception.NotFoundExceptionCinema;
+import com.booster.CineMagic.Exception.*;
 import com.booster.CineMagic.Util.ResponseError;
 import com.booster.CineMagic.Util.ResponseErrorList;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +39,13 @@ public class ControllerAdvice {
 
     @ExceptionHandler(value = ExistingDataException.class)
     public ResponseEntity<ResponseError> handleExistingDataException(ExistingDataException exception){
+        ResponseError error = new ResponseError(exception.getErrorCode(), exception.getMessage());
+
+        return new ResponseEntity<>(error, exception.getErrorStatus());
+    }
+
+    @ExceptionHandler(value = DependencyEntityException.class)
+    public ResponseEntity<ResponseError> handleDependencyEntityException(DependencyEntityException exception){
         ResponseError error = new ResponseError(exception.getErrorCode(), exception.getMessage());
 
         return new ResponseEntity<>(error, exception.getErrorStatus());
