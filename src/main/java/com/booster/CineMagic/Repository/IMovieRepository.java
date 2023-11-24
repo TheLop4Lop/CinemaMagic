@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IMovieRepository extends JpaRepository<Movie, Integer> {
+    boolean existsProjectionsByMovieId(Integer id);
 }

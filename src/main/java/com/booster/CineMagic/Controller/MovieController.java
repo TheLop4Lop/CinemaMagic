@@ -139,6 +139,11 @@ public class MovieController {
 
     @DeleteMapping("/delete/movie/{id}")
     ResponseEntity<?> deleteMovie(@PathVariable Integer id){
+        if(movieService.hasProjections(id)){
+            throw new ExistingDataException("Existing Data Exception: " + movieService.getMovieByID(id).getTitle() +
+                    " is register on projection, delete projection first", "Error 409", HttpStatus.CONFLICT);
+        }
+
         boolean deletionResult = movieService.deleteMovie(id);
 
         if (!deletionResult) {

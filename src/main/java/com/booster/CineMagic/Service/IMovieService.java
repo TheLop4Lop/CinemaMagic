@@ -15,6 +15,7 @@ public interface IMovieService {
     List<Movie> getMoviesByType(Account type);
     Movie getMovieByID(Integer id);
     Movie getMovieByTitle(String title);
+    boolean hasProjections(Integer id);
     Movie addNewMovie(Movie newMovie);
     Movie modifyMovieByID(Integer id, Movie modifyMovie);
     boolean deleteMovie(Integer id);

@@ -123,6 +123,11 @@ public class MovieService implements IMovieService{
     }
 
     @Override
+    public boolean hasProjections(Integer id) {
+        return movieRepository.existsProjectionsByMovieId(id);
+    }
+
+    @Override
     public Movie addNewMovie(Movie newMovie) {
 
         return movieRepository.save(newMovie);
