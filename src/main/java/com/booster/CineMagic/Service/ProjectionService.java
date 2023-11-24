@@ -56,6 +56,20 @@ public class ProjectionService implements IProjectionService{
     }
 
     @Override
+    public boolean checkUsageOfRoomHour(Projection checkProjection){
+        List<Projection> allProjections = projectionRepository.findAll();
+
+        for(Projection singleProjection : allProjections){
+            if(Objects.equals(singleProjection.getHour(), checkProjection.getHour()) &&
+                    Objects.equals(singleProjection.getRoom(), checkProjection.getRoom())){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
     public Projection addNewProjection(Projection newProjection) {
 
         return projectionRepository.save(newProjection);

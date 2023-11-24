@@ -9,6 +9,7 @@ public interface IProjectionService {
     List<Projection> getProjections();
     List<Projection> getProjectionsByCriteria(ProjectionCriteria criteria, String value);
     Projection getProjectionById(Integer id);
+    boolean checkUsageOfRoomHour(Projection checkProjection);
     Projection addNewProjection(Projection newProjection);
     Projection modifyProjectionById(Integer id, Projection modifyProjection);
     boolean deleteProjectionById(Integer id);

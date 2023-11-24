@@ -10,4 +10,4 @@ INSERT INTO movies (Title, Duration, Country, Category, Classification, Rating, 
 INSERT INTO movies (Title, Duration, Country, Category, Classification, Rating, Synopsis, Movie_Language, Release_Year, Director, Format, Type, Watched) VALUES ('John Wick','169 minutes','United States','Action','R-15',4.3,'An international assassin comes back from retirement','English',2014,'Chad Stahelski','DUBBED','REGULAR',500)
 INSERT INTO movies (Title, Duration, Country, Category, Classification, Rating, Synopsis, Movie_Language, Release_Year, Director, Format, Type, Watched) VALUES ('Pastorela','90 minutes','Mexico','Comedy','PG-13',4.0,'A man wants to be El Diablo in a little town','Spanish',2011,'Emilio Portes','SUBTITLE','REGULAR',135)
 
-INSERT INTO projection (ID_Projection, ID_Movie, Room, Projection_Hour) VALUES (1, 1, '2A', '16:00')
+INSERT INTO projection (ID_Movie, Room, Projection_Hour) VALUES (1, '2A', '16:00')

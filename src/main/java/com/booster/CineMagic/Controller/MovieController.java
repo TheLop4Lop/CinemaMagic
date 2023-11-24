@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,7 +24,7 @@ public class MovieController {
     @Autowired
     IMovieService movieService;
 
-    @RequestMapping("/movies")
+    @GetMapping("/movies")
     public ResponseEntity<?> getMovies(){
         List<Movie> movies = movieService.getMovies();
 
@@ -40,7 +37,7 @@ public class MovieController {
         return ResponseEntity.ok(movies);
     }
 
-    @RequestMapping("/movies/year/{year}")
+    @GetMapping("/movies/year/{year}")
     public ResponseEntity<?> getMoviesByYear(@PathVariable int year){
         List<Movie> moviesByYear = movieService.getMoviesByYear(year);
 
@@ -53,19 +50,19 @@ public class MovieController {
         return ResponseEntity.ok(moviesByYear);
     }
 
-    @RequestMapping("/movies/{criteria}/{value}")
+    @GetMapping("/movies/{criteria}/{value}")
     public ResponseEntity<?> getMoviesByCriteria(@PathVariable MovieCriteria criteria, @PathVariable String value){
         List<Movie> moviesByCriteria = movieService.getMoviesByCriteria(criteria, value);
 
         if(moviesByCriteria.isEmpty()){
-            throw new EmptyListException("Not Found Exception", "Error 404, No movie found with that value",
+            throw new EmptyListException("Not Found Exception", "Error 404, No movies found with that value",
                     HttpStatus.NOT_FOUND);
         }
 
         return ResponseEntity.ok(moviesByCriteria);
     }
 
-    @RequestMapping("/movies/{format}")
+    @GetMapping("/movies/{format}")
     public ResponseEntity<?> getMoviesByFormat(@PathVariable MovieFormat format){
         List<Movie> moviesByFormat = movieService.getMoviesByFormat(format);
 
@@ -77,7 +74,7 @@ public class MovieController {
         return ResponseEntity.ok(moviesByFormat);
     }
 
-    @RequestMapping("/movies/account/{type}")
+    @GetMapping("/movies/account/{type}")
     public ResponseEntity<?> getMoviesByType(@PathVariable Account type){
         List<Movie> moviesByType = movieService.getMoviesByType(type);
 
@@ -89,7 +86,7 @@ public class MovieController {
         return ResponseEntity.ok(moviesByType);
     }
 
-    @RequestMapping("/movie/{id}")
+    @GetMapping("/movie/{id}")
     ResponseEntity<?> getMovieByID(@PathVariable Integer id){
         Movie movieById = movieService.getMovieByID(id);
 
@@ -101,7 +98,7 @@ public class MovieController {
         return ResponseEntity.ok(movieById);
     }
 
-    @RequestMapping("/movie/title/{title}")
+    @GetMapping("/movie/title/{title}")
     ResponseEntity<?>getMovieByTitle(@PathVariable String title){
         Movie movieByTitle = movieService.getMovieByTitle(title);
 
@@ -113,7 +110,7 @@ public class MovieController {
         return ResponseEntity.ok(movieByTitle);
     }
 
-    @RequestMapping("/add/movie")
+    @PostMapping("/add/movie")
     ResponseEntity<?> addNewMovie(@Valid @RequestBody Movie newMovie, BindingResult result){
         if(result.hasErrors()){
             throw new EmptyDataListException("Empty Data List Exception", "Error 404", HttpStatus.BAD_REQUEST, result);
@@ -128,7 +125,7 @@ public class MovieController {
         return ResponseEntity.ok(movieService.addNewMovie(newMovie));
     }
 
-    @RequestMapping("modify/movie/{id}")
+    @PutMapping("/modify/movie/{id}")
     ResponseEntity<?> modifyMovieByID(@Valid @RequestBody Movie modifyMovie, @PathVariable Integer id, BindingResult result){
         if(result.hasErrors()){
             throw new EmptyDataListException("Empty Data List Exception", "Error 404", HttpStatus.BAD_REQUEST, result);
@@ -140,7 +137,7 @@ public class MovieController {
         return ResponseEntity.ok(movieService.modifyMovieByID(id, modifyMovie));
     }
 
-    @RequestMapping("delete/movie/{id}")
+    @DeleteMapping("/delete/movie/{id}")
     ResponseEntity<?> deleteMovie(@PathVariable Integer id){
         boolean deletionResult = movieService.deleteMovie(id);
 
