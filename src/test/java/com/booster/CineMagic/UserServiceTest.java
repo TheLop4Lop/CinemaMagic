@@ -30,14 +30,11 @@ public class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
-    private User userTest;
-    private List<User> userListTest;
-
     @BeforeEach()
     void setUp(){
         MockitoAnnotations.initMocks(this);
-        userListTest = new ArrayList<>();
-        userTest = new User(1, "Pedro Martinez", "pedromtz@gmail.com", 26,
+        List<User> userListTest = new ArrayList<>();
+        User userTest = new User(1, "Pedro Martinez", "pedromtz@gmail.com", 26,
                 "PeterMtz", "12345", Account.PREMIUM);
         userListTest.add(userTest);
 

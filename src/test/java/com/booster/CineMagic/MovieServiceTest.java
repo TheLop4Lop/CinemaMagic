@@ -32,16 +32,13 @@ public class MovieServiceTest {
     @InjectMocks
     private MovieService movieService;
 
-    private Movie movieTest;
-    private List<Movie> moviesTestList;
-
     @BeforeEach
     void setUp(){
         MockitoAnnotations.initMocks(this);
-        moviesTestList = new ArrayList<>();
-        movieTest = new Movie(1, "Paddington", "95 minutes", "UK", "Adventure",
-                    "PG", 4, "And adventure with a Bear", "English", 2014,
-                        "Paul King", MovieFormat.SUBTITLE, Account.REGULAR, 42);
+        List<Movie> moviesTestList = new ArrayList<>();
+        Movie movieTest = new Movie(1, "Paddington", "95 minutes", "UK", "Adventure",
+                "PG", 4, "And adventure with a Bear", "English", 2014,
+                "Paul King", MovieFormat.SUBTITLE, Account.REGULAR, 42, true);
         moviesTestList.add(movieTest);
 
         when(movieRepository.findAll()).thenReturn(moviesTestList);
@@ -85,6 +82,13 @@ public class MovieServiceTest {
     }
 
     @Test
+    void testGetMoviesWithProjection(){
+        List<Movie> movieProjections = movieService.getMoviesWithProjection();
+
+        assertTrue(movieProjections != null && !movieProjections.isEmpty());
+    }
+
+    @Test
     void testGetMovieByID(){
         Movie movieById = movieService.getMovieByID(1);
 
@@ -99,10 +103,17 @@ public class MovieServiceTest {
     }
 
     @Test
+    void testHasProjections(){
+        boolean projected = movieService.hasProjections(1);
+
+        assertTrue(projected);
+    }
+
+    @Test
     void testAddNewMovie(){
         Movie newMovie = new Movie(1, "Paddington 2", "97 minutes", "UK", "Adventure",
                 "PG", 4, "And adventure with a Bear 2", "English", 2014,
-                "Paul King", MovieFormat.SUBTITLE, Account.REGULAR, 78);
+                "Paul King", MovieFormat.SUBTITLE, Account.REGULAR, 78, true);
 
         when(movieRepository.save(newMovie)).thenReturn(newMovie);
         Movie actualMovie = movieService.addNewMovie(newMovie);
@@ -114,7 +125,7 @@ public class MovieServiceTest {
     void testModifyMovieByID(){
         Movie modifyMovie = new Movie(1, "Paddington 2", "97 minutes", "UK", "Adventure",
                 "PG", 4, "And adventure with a Bear 2", "English", 2014,
-                "Paul King", MovieFormat.SUBTITLE, Account.REGULAR, 78);
+                "Paul King", MovieFormat.SUBTITLE, Account.REGULAR, 78, true);
 
         when(movieRepository.save(any(Movie.class))).thenReturn(modifyMovie);
         Movie actualMovie = movieService.modifyMovieByID(1, modifyMovie);

@@ -26,15 +26,12 @@ public class WorkerServiceTest {
     @InjectMocks
     WorkerService workerService;
 
-    private Worker workerTest;
-    private List<Worker> workerListTest;
-
     @BeforeEach()
     void setUp(){
         MockitoAnnotations.initMocks(this);
-        workerListTest = new ArrayList<>();
-        workerTest = new Worker(1, "Pedro Martinez", 2021, "peter@gmail.com",
-                            "PedroW12", "Password123", WorkerType.ADMIN);
+        List<Worker> workerListTest = new ArrayList<>();
+        Worker workerTest = new Worker(1, "Pedro Martinez", 2021, "peter@gmail.com",
+                "PedroW12", "Password123", WorkerType.ADMIN);
         workerListTest.add(workerTest);
 
         when(workerRepository.findAll()).thenReturn(workerListTest);
