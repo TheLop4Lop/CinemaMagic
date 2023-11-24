@@ -12,7 +12,7 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_Movie")
-    private Integer id;
+    private Integer movieId;
 
     @NotNull(message = "Title is Null")
     @NotEmpty(message = "Title is Empty")
@@ -87,7 +87,7 @@ public class Movie {
     public Movie(Integer id, String title, String duration, String country, String category, String classification,
                  float rating, String synopsis, String language, int year, String director,
                  MovieFormat format, Account type, int watched) {
-        this.id = id;
+        this.movieId = id;
         this.title = title;
         this.duration = duration;
         this.country = country;
@@ -104,11 +104,11 @@ public class Movie {
     }
 
     public Integer getId() {
-        return id;
+        return movieId;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.movieId = id;
     }
 
     public String getTitle() {
