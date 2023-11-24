@@ -104,6 +104,20 @@ public class MovieService implements IMovieService{
     }
 
     @Override
+    public List<Movie> getMoviesWithProjection() {
+        List<Movie> allMovies = movieRepository.findAll();
+        List<Movie> moviesProjection = new ArrayList<>();
+
+        for(Movie singleMovie : allMovies){
+            if(singleMovie.isAvailable()){
+                moviesProjection.add(singleMovie);
+            }
+        }
+
+        return moviesProjection;
+    }
+
+    @Override
     public Movie getMovieByID(Integer id) {
 
         return movieRepository.findById(id).orElse(null);
@@ -124,7 +138,15 @@ public class MovieService implements IMovieService{
 
     @Override
     public boolean hasProjections(Integer id) {
-        return movieRepository.existsProjectionsByMovieId(id);
+        List<Movie> movieProjections =  getMoviesWithProjection();
+
+        for(Movie singleMovie : movieProjections){
+            if(singleMovie.isAvailable() == getMovieByID(id).isAvailable()){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

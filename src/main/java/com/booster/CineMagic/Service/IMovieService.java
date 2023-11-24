@@ -13,6 +13,7 @@ public interface IMovieService {
     List<Movie> getMoviesByCriteria(MovieCriteria criteria, String value);
     List<Movie> getMoviesByFormat(MovieFormat format);
     List<Movie> getMoviesByType(Account type);
+    List<Movie> getMoviesWithProjection();
     Movie getMovieByID(Integer id);
     Movie getMovieByTitle(String title);
     boolean hasProjections(Integer id);

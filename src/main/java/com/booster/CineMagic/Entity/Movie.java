@@ -80,14 +80,19 @@ public class Movie {
     @Column(name = "Watched")
     private int watched;
 
+    @NotNull(message = "Available is null")
+    @Column(name = "Available")
+    private boolean available;
+
     public Movie() {
 
     }
 
-    public Movie(Integer id, String title, String duration, String country, String category, String classification,
-                 float rating, String synopsis, String language, int year, String director,
-                 MovieFormat format, Account type, int watched) {
-        this.movieId = id;
+    public Movie(Integer movieId, String title, String duration, String country,
+                 String category, String classification, float rating, String synopsis,
+                 String language, int year, String director, MovieFormat format, Account type,
+                 int watched, boolean available) {
+        this.movieId = movieId;
         this.title = title;
         this.duration = duration;
         this.country = country;
@@ -101,14 +106,15 @@ public class Movie {
         this.format = format;
         this.type = type;
         this.watched = watched;
+        this.available = available;
     }
 
-    public Integer getId() {
+    public Integer getMovieId() {
         return movieId;
     }
 
-    public void setId(Integer id) {
-        this.movieId = id;
+    public void setMovieId(Integer movieId) {
+        this.movieId = movieId;
     }
 
     public String getTitle() {
@@ -213,6 +219,14 @@ public class Movie {
 
     public void setWatched(int watched) {
         this.watched = watched;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
 }

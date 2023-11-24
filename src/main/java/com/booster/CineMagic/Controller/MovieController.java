@@ -86,6 +86,18 @@ public class MovieController {
         return ResponseEntity.ok(moviesByType);
     }
 
+    @GetMapping("/movies/projected")
+    public ResponseEntity<?> getMoviesWithProjection(){
+        List<Movie> moviesProjected = movieService.getMoviesWithProjection();
+
+        if(moviesProjected.isEmpty()){
+            throw new EmptyListException("Not Found Exception", "Error 404, Movie List is empty",
+                    HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(moviesProjected);
+    }
+
     @GetMapping("/movie/{id}")
     ResponseEntity<?> getMovieByID(@PathVariable Integer id){
         Movie movieById = movieService.getMovieByID(id);
@@ -141,7 +153,7 @@ public class MovieController {
     ResponseEntity<?> deleteMovie(@PathVariable Integer id){
         if(movieService.hasProjections(id)){
             throw new ExistingDataException("Existing Data Exception: " + movieService.getMovieByID(id).getTitle() +
-                    " is register on projection, delete associated projections", "Error 409", HttpStatus.CONFLICT);
+                    " is register on projection, please delete associated projections", "Error 409", HttpStatus.CONFLICT);
         }
 
         boolean deletionResult = movieService.deleteMovie(id);
