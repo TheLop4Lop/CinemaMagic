@@ -38,7 +38,7 @@ public class MovieServiceTest {
         List<Movie> moviesTestList = new ArrayList<>();
         Movie movieTest = new Movie(1, "Paddington", "95 minutes", "UK", "Adventure",
                 "PG", 4, "And adventure with a Bear", "English", 2014,
-                "Paul King", MovieFormat.SUBTITLE, Account.REGULAR, 42, true);
+                "Paul King", MovieFormat.SUBTITLE, Account.REGULAR, 42);
         moviesTestList.add(movieTest);
 
         when(movieRepository.findAll()).thenReturn(moviesTestList);
@@ -113,7 +113,7 @@ public class MovieServiceTest {
     void testAddNewMovie(){
         Movie newMovie = new Movie(1, "Paddington 2", "97 minutes", "UK", "Adventure",
                 "PG", 4, "And adventure with a Bear 2", "English", 2014,
-                "Paul King", MovieFormat.SUBTITLE, Account.REGULAR, 78, true);
+                "Paul King", MovieFormat.SUBTITLE, Account.REGULAR, 78);
 
         when(movieRepository.save(newMovie)).thenReturn(newMovie);
         Movie actualMovie = movieService.addNewMovie(newMovie);
@@ -125,7 +125,7 @@ public class MovieServiceTest {
     void testModifyMovieByID(){
         Movie modifyMovie = new Movie(1, "Paddington 2", "97 minutes", "UK", "Adventure",
                 "PG", 4, "And adventure with a Bear 2", "English", 2014,
-                "Paul King", MovieFormat.SUBTITLE, Account.REGULAR, 78, true);
+                "Paul King", MovieFormat.SUBTITLE, Account.REGULAR, 78);
 
         when(movieRepository.save(any(Movie.class))).thenReturn(modifyMovie);
         Movie actualMovie = movieService.modifyMovieByID(1, modifyMovie);

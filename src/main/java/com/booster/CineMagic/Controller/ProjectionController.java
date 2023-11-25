@@ -64,8 +64,8 @@ public class ProjectionController {
             throw new EmptyDataListException("Empty Data List Exception", "Error 404", HttpStatus.BAD_REQUEST, result);
         }
 
-        boolean projectionControl = projectionService.checkUsageOfRoomHour(newProjection);
-        if(projectionControl){
+        Projection projectionControl = projectionService.checkUsageOfRoomHour(newProjection);
+        if(projectionControl != null){
             throw new ExistingDataException("Existing Data Exception: " + newProjection.getRoom() + " already register at "
                     + newProjection.getHour() + " by movie: " + newProjection.getMovie().getTitle(), "Error 409", HttpStatus.CONFLICT);
         }

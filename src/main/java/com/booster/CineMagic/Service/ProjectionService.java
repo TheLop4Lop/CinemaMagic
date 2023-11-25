@@ -1,5 +1,6 @@
 package com.booster.CineMagic.Service;
 
+import com.booster.CineMagic.Entity.Movie;
 import com.booster.CineMagic.Entity.Projection;
 import com.booster.CineMagic.Enum.ProjectionCriteria;
 import com.booster.CineMagic.Repository.IProjectionRepository;
@@ -14,6 +15,8 @@ import java.util.Objects;
 public class ProjectionService implements IProjectionService{
     @Autowired
     IProjectionRepository projectionRepository;
+    @Autowired
+    IMovieService movieService;
 
     @Override
     public List<Projection> getProjections() {
@@ -26,26 +29,25 @@ public class ProjectionService implements IProjectionService{
         List<Projection> allProjections = projectionRepository.findAll();
         List<Projection> projectionsByCriteria = new ArrayList<>();
 
-        for(Projection singleProjection : allProjections){
-            switch(criteria){
+        for(Projection singleProjection : allProjections) {
+            switch (criteria) {
                 case TITLE:
-                    if(Objects.equals(singleProjection.getMovie().getTitle(), value)){
+                    if (Objects.equals(singleProjection.getMovie().getTitle(), value)) {
                         projectionsByCriteria.add(singleProjection);
                     }
                     break;
                 case ROOM:
-                    if(Objects.equals(singleProjection.getRoom(), value)){
+                    if (Objects.equals(singleProjection.getRoom(), value)) {
                         projectionsByCriteria.add(singleProjection);
                     }
                     break;
                 case HOUR:
-                    if(Objects.equals(singleProjection.getHour(), value)){
+                    if (Objects.equals(singleProjection.getHour(), value)) {
                         projectionsByCriteria.add(singleProjection);
                     }
                     break;
             }
         }
-
         return projectionsByCriteria;
     }
 
@@ -56,17 +58,17 @@ public class ProjectionService implements IProjectionService{
     }
 
     @Override
-    public boolean checkUsageOfRoomHour(Projection checkProjection){
+    public Projection checkUsageOfRoomHour(Projection checkProjection){
         List<Projection> allProjections = projectionRepository.findAll();
 
         for(Projection singleProjection : allProjections){
             if(Objects.equals(singleProjection.getHour(), checkProjection.getHour()) &&
                     Objects.equals(singleProjection.getRoom(), checkProjection.getRoom())){
-                return true;
+                return singleProjection;
             }
         }
 
-        return false;
+        return null;
     }
 
     @Override
@@ -91,6 +93,19 @@ public class ProjectionService implements IProjectionService{
         if(!projectionRepository.existsById(id)){
             return false;
         }
+
+        Movie movieReference = getProjectionById(id).getMovie();
+        List<Projection> projectionList = getProjections();
+        int cnt = 0;
+
+        Projection selfProjection = getProjectionById(id);
+        for(Projection singleProjection : projectionList){
+            if(singleProjection == selfProjection){
+                cnt++;
+            }
+        }
+
+        movieReference.setAvailable(cnt > 1);
 
         projectionRepository.delete(getProjectionById(id));
         return true;
