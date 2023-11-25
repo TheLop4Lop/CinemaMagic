@@ -6,6 +6,7 @@ import com.booster.CineMagic.Enum.Account;
 import com.booster.CineMagic.Enum.MovieFormat;
 import com.booster.CineMagic.Enum.ProjectionCriteria;
 import com.booster.CineMagic.Repository.IProjectionRepository;
+import com.booster.CineMagic.Service.MovieService;
 import com.booster.CineMagic.Service.ProjectionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,8 @@ public class ProjectionServiceTest {
     private IProjectionRepository projectionRepository;
     @InjectMocks
     private ProjectionService projectionService;
+    @InjectMocks
+    private MovieService movieService;
 
     @BeforeEach
     void setUp(){
