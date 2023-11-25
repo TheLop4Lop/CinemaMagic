@@ -68,6 +68,8 @@ public class ProjectionController {
         if(projectionControl != null){
             throw new ExistingDataException("Existing Data Exception: " + newProjection.getRoom() + " already register at "
                     + newProjection.getHour() + " by movie: " + newProjection.getMovie().getTitle(), "Error 409", HttpStatus.CONFLICT);
+        }else if(!projectionService.checkMovieIdentity(newProjection)){
+            throw new ExistingDataException("Existing Data Exception: The Movie not register!", "Error 409", HttpStatus.CONFLICT);
         }
 
         return ResponseEntity.ok(projectionService.addNewProjection(newProjection));

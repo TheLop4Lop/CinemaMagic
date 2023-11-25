@@ -171,6 +171,7 @@ public class MovieService implements IMovieService{
             getMovieByID(id).setFormat(modifyMovie.getFormat());
             getMovieByID(id).setType(modifyMovie.getType());
             getMovieByID(id).setWatched(modifyMovie.getWatched());
+            getMovieByID(id).setAvailable(modifyMovie.isAvailable());
 
             return movieRepository.save(getMovieByID(id));
         }

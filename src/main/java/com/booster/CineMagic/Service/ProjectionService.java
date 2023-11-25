@@ -72,6 +72,31 @@ public class ProjectionService implements IProjectionService{
     }
 
     @Override
+    public boolean checkMovieIdentity(Projection checkProjection) {
+        if(movieService.getMovieByID(checkProjection.getMovie().getMovieId()) == null){
+            return false;
+        }
+
+        Movie movieControl = movieService.getMovieByID(checkProjection.getMovie().getMovieId());
+
+        return Objects.equals(movieControl.getMovieId(), checkProjection.getMovie().getMovieId()) &&
+                Objects.equals(movieControl.getTitle(), checkProjection.getMovie().getTitle()) &&
+                Objects.equals(movieControl.getDuration(), checkProjection.getMovie().getDuration()) &&
+                Objects.equals(movieControl.getCountry(), checkProjection.getMovie().getCountry()) &&
+                Objects.equals(movieControl.getCategory(), checkProjection.getMovie().getCategory()) &&
+                Objects.equals(movieControl.getClassification(), checkProjection.getMovie().getClassification()) &&
+                Objects.equals(movieControl.getRating(), checkProjection.getMovie().getRating()) &&
+                Objects.equals(movieControl.getSynopsis(), checkProjection.getMovie().getSynopsis()) &&
+                Objects.equals(movieControl.getLanguage(), checkProjection.getMovie().getLanguage()) &&
+                Objects.equals(movieControl.getYear(), checkProjection.getMovie().getYear()) &&
+                Objects.equals(movieControl.getDirector(), checkProjection.getMovie().getDirector()) &&
+                Objects.equals(movieControl.getFormat(), checkProjection.getMovie().getFormat()) &&
+                Objects.equals(movieControl.getType(), checkProjection.getMovie().getType()) &&
+                Objects.equals(movieControl.getWatched(), checkProjection.getMovie().getWatched()) &&
+                Objects.equals(movieControl.isAvailable(), checkProjection.getMovie().isAvailable());
+    }
+
+    @Override
     public Projection addNewProjection(Projection newProjection) {
 
         return projectionRepository.save(newProjection);
